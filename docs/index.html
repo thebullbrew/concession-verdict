@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Concession Verdict — Free Month or Real Deal?</title>
+<meta name="description" content="Effective-rent judge: what a lease with free months, broker fees and credits really costs — and the renewal shock hiding behind it.">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#07080A">
+<link rel="icon" href="icons/icon-32.png"><link rel="apple-touch-icon" href="icons/icon-180.png">
+<style>
+:root{--bg:#07080A;--surface:#0E1013;--text:#F5F3EC;--accent:#E3C878;--accent2:#2A2E35;--muted:#9a978c;--line:#23262c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 70px}
+.eyebrow{letter-spacing:.35em;text-transform:uppercase;font-size:.68rem;color:var(--muted);text-align:center}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.02;text-align:center;margin:.25em 0 .15em;font-weight:600}
+.sub{text-align:center;color:var(--muted);font-style:italic;max-width:640px;margin:0 auto 8px}
+.hero{text-align:center;padding:36px 10px 10px}
+.heronum{font-size:clamp(3rem,9vw,5.6rem);color:var(--accent);line-height:1;margin:10px 0 2px}
+.herolabel{letter-spacing:.25em;text-transform:uppercase;font-size:.7rem;color:var(--muted)}
+.seal{display:inline-block;margin-top:16px;padding:14px 22px;border:2px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:700;letter-spacing:.12em;transform:rotate(-4deg);font-size:1.05rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);padding:22px;margin-top:18px}
+.card h2{margin:0 0 6px;font-size:1.35rem}.card h3{margin:0 0 4px}
+label{display:block;font-size:.82rem;color:var(--muted);margin:12px 0 4px;letter-spacing:.04em}
+input,select{width:100%;background:#07080A;border:1px solid var(--line);color:var(--text);padding:10px;font:inherit;font-size:1rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);padding:16px;text-align:center}
+.kpi b{display:block;font-size:1.55rem;color:var(--accent);font-weight:600}.kpi span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.94rem}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:normal;letter-spacing:.05em}
+button{background:var(--accent);color:#0a0a08;border:0;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;margin:6px 6px 0 0}
+button.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.note{color:var(--muted);font-size:.88rem}.win{color:var(--accent);font-weight:700}
+.bar{height:10px;background:var(--accent2);margin:8px 0}.bar i{display:block;height:100%;background:var(--accent)}
+footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+.saved{font-size:.9rem}.saved div{padding:8px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+</style></head><body><div class="wrap">
+<div class="hero"><div class="eyebrow">The Concession Verdict</div>
+<h1>“One month free”<br>is a price tag<br>in disguise.</h1>
+<p class="sub">Free months, broker fees and move-in credits all bend the same number: your effective rent. This judge strips the ribbon off two leases, names the one that actually costs less — and shows the renewal shock waiting at month thirteen.</p>
+<div class="herolabel">Lease A — Effective Monthly Cost, All-In</div>
+<div class="heronum" id="heroNum">—</div>
+<div class="herolabel" id="heroSub">Enter a lease to see the verdict</div><br>
+<span class="seal" id="seal">UNDECIDED</span>
+<p class="note" id="verdictLine" style="max-width:620px;margin:18px auto 0"></p></div>
+
+<div class="grid">
+<section class="card"><h2>Lease A — The Pitch</h2>
+<label>Nickname</label><input id="a_name" value="The “free month” unit">
+<div class="row"><div><label>Advertised rent ($/mo)</label><input type="number" id="a_face" value="3200"></div>
+<div><label>Lease term (months)</label><input type="number" id="a_term" value="12"></div></div>
+<div class="row"><div><label>Free months</label><input type="number" id="a_free" value="1" step="0.5" min="0"></div>
+<div><label>Move-in credit ($)</label><input type="number" id="a_credit" value="0"></div></div>
+<div class="row"><div><label>Broker fee ($)</label><input type="number" id="a_broker" value="3200"></div>
+<div><label>Other upfront fees ($)</label><input type="number" id="a_fees" value="250"></div></div>
+<label>Monthly add-ons — parking, amenity, pet ($/mo, charged every month)</label><input type="number" id="a_addons" value="75">
+<label>Expected renewal increase (%)</label><input type="number" id="a_inc" value="5" step="0.5">
+<div id="a_out"></div></section>
+
+<section class="card"><h2>Lease B — The Alternative</h2>
+<label>Nickname</label><input id="b_name" value="The straight-rent unit">
+<div class="row"><div><label>Advertised rent ($/mo)</label><input type="number" id="b_face" value="2950"></div>
+<div><label>Lease term (months)</label><input type="number" id="b_term" value="12"></div></div>
+<div class="row"><div><label>Free months</label><input type="number" id="b_free" value="0" step="0.5" min="0"></div>
+<div><label>Move-in credit ($)</label><input type="number" id="b_credit" value="0"></div></div>
+<div class="row"><div><label>Broker fee ($)</label><input type="number" id="b_broker" value="0"></div>
+<div><label>Other upfront fees ($)</label><input type="number" id="b_fees" value="250"></div></div>
+<label>Monthly add-ons ($/mo)</label><input type="number" id="b_addons" value="75">
+<label>Expected renewal increase (%)</label><input type="number" id="b_inc" value="5" step="0.5">
+<div id="b_out"></div></section>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="card"><h2>A vs B — The Honest Winner</h2><div id="compare"></div></section>
+
+<section class="card"><h2>The Renewal Shock — Lease A</h2>
+<p class="note">Concessions die at renewal. The landlord renews off the <em>face</em> rent, not your effective rent — so the jump feels bigger than the increase sounds. Here is Lease A at different renewal increases:</p>
+<div id="sens"></div>
+<p class="note" id="cutLine"></p></section>
+
+<section class="card"><h2>How to use the concession like an adult</h2>
+<p>Ask for the concession as a straight rent cut and watch the room change. A free month is worth real money in year one and nothing in year two — the renewal is priced off the inflated face rent forever. A cut, by contrast, compounds in your favour at every renewal. If they will not cut, take the free months up front, bank the difference, and price your renewal decision off the face rent — never off the number you got used to paying.</p>
+<button onclick="saveScenario()">Save comparison</button>
+<button class="ghost" onclick="copySummary()">Copy summary</button>
+<div class="saved" id="saved"></div></section>
+
+<footer>The Concession Verdict · A daily tool from The Bull Brew · Estimates only — read your lease; add-ons are assumed charged in free months, as most leases do.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const pct=n=>(n>=0?'+':'')+n.toFixed(1)+'%';
+function read(p){return{name:$(p+'_name').value||('Lease '+p.toUpperCase()),face:+$(p+'_face').value||0,term:Math.max(1,+$(p+'_term').value||12),free:Math.min(Math.max(0,+$(p+'_free').value||0),Math.max(1,+$(p+'_term').value||12)),credit:+$(p+'_credit').value||0,broker:+$(p+'_broker').value||0,fees:+$(p+'_fees').value||0,addons:+$(p+'_addons').value||0,inc:+$(p+'_inc').value||0}}
+function calc(L){
+ const rentPaid=L.face*(L.term-L.free);
+ const addonsTotal=L.addons*L.term;
+ const total=rentPaid+addonsTotal+L.broker+L.fees-L.credit;
+ const effective=total/L.term;
+ const sticker=L.face+L.addons; // monthly sticker all-in
+ const stickerTotal=sticker*L.term+L.broker+L.fees;
+ const savedVsSticker=stickerTotal-total;
+ const discPct=sticker? (1-effective/sticker)*100:0;
+ const concValue=L.free*L.face+L.credit;
+ const equivCut=concValue/L.term;
+ const renewal=L.face*(1+L.inc/100);
+ const shock=renewal-effective, shockPct=effective? (renewal/effective-1)*100:0;
+ return{rentPaid,addonsTotal,total,effective,sticker,savedVsSticker,discPct,concValue,equivCut,renewal,shock,shockPct};
+}
+function leaseOut(p,L,c){
+ $(p+'_out').innerHTML='<table>'+
+ '<tr><td>Rent actually paid ('+(L.term-L.free)+' of '+L.term+' mo)</td><td>'+fmt(c.rentPaid)+'</td></tr>'+
+ '<tr><td>Add-ons over term</td><td>'+fmt(c.addonsTotal)+'</td></tr>'+
+ '<tr><td>Broker + fees − credit</td><td>'+fmt(L.broker+L.fees-L.credit)+'</td></tr>'+
+ '<tr><td><b>Total cost of the term</b></td><td><b>'+fmt(c.total)+'</b></td></tr>'+
+ '<tr><td>Effective monthly, all-in</td><td class="win">'+fmt(c.effective)+'</td></tr>'+
+ '<tr><td>Concession value (free mo + credit)</td><td>'+fmt(c.concValue)+'</td></tr></table>';
+}
+function render(){
+ const A=read('a'),B=read('b'),ca=calc(A),cb=calc(B);
+ leaseOut('a',A,ca); leaseOut('b',B,cb);
+ $('heroNum').textContent=fmt(ca.effective);
+ $('heroSub').textContent='vs '+fmt(ca.sticker)+' sticker · '+fmt(ca.total)+' over '+A.term+' months';
+ // verdict
+ let seal,line;
+ if(ca.shockPct>=18){seal='RENEWAL TRAP';line='The discount is real, but it expires violently. Your renewal rent jumps '+pct(ca.shockPct)+' off the number you got used to paying. Enjoy year one — and start shopping in month ten.'}
+ else if(ca.discPct>=7){seal='REAL DEAL';line='A genuine '+ca.discPct.toFixed(1)+'% effective discount with a survivable renewal. Take it, bank the free-month money, and do not let the face rent anchor your next negotiation.'}
+ else if(ca.discPct<2.5){seal='WINDOW DRESSING';line='Strip the ribbon and there is almost nothing here — a '+ca.discPct.toFixed(1)+'% effective discount once fees are counted. The concession is marketing. Negotiate the rent itself.'}
+ else{seal='FAIR TRADE';line='A modest, honest discount of '+ca.discPct.toFixed(1)+'% effective. Worth taking if you like the unit — not a reason to choose it over a better one.'}
+ $('seal').textContent=seal; $('verdictLine').textContent=line;
+ $('kpis').innerHTML=
+  '<div class="kpi"><b>'+fmt(ca.effective)+'</b><span>A effective / mo</span></div>'+
+  '<div class="kpi"><b>'+fmt(cb.effective)+'</b><span>B effective / mo</span></div>'+
+  '<div class="kpi"><b>'+ca.discPct.toFixed(1)+'%</b><span>A true discount</span></div>'+
+  '<div class="kpi"><b>'+pct(ca.shockPct)+'</b><span>A renewal shock</span></div>'+
+  '<div class="kpi"><b>'+fmt(ca.equivCut)+'</b><span>A concession as $/mo cut</span></div>';
+ // compare
+ const diff=Math.abs(ca.effective-cb.effective);
+ const winner=ca.effective<=cb.effective?A:B, wc=ca.effective<=cb.effective?ca:cb, lc=ca.effective<=cb.effective?cb:ca;
+ const yrSave=diff*12;
+ $('compare').innerHTML='<p><span class="win">'+winner.name+' wins</span> by '+fmt(diff)+' a month on an effective, all-in basis — '+fmt(yrSave)+' over a 12-month year.</p>'+
+ '<div class="bar"><i style="width:'+Math.min(100,wc.effective/Math.max(ca.effective,cb.effective)*100)+'%"></i></div>'+
+ '<p class="note">Winner bar scaled to the pricier lease. Totals over each lease\u2019s own term: A '+fmt(ca.total)+' ('+A.term+' mo) · B '+fmt(cb.total)+' ('+B.term+' mo). If the terms differ, trust the effective monthly — it is the only apples-to-apples number on this page.</p>';
+ // sensitivity
+ let rows='<table><tr><th>Renewal increase</th><th>Renewal rent</th><th>Jump vs effective</th><th>Jump %</th><th>Year-2 cost</th></tr>';
+ [0,2,4,6,8,10].forEach(i=>{const r=A.face*(1+i/100);rows+='<tr><td>'+i+'%</td><td>'+fmt(r)+'</td><td>'+fmt(r-ca.effective)+'</td><td>'+pct(ca.effective?(r/ca.effective-1)*100:0)+'</td><td>'+fmt(r*12+A.addons*12)+'</td></tr>'});
+ $('sens').innerHTML=rows+'</table>';
+ $('cutLine').innerHTML='The translation the leasing office will not make: Lease A\u2019s concession equals a straight cut to <b>'+fmt(A.face-ca.equivCut)+'/mo</b> off the face rent. Ask for that instead — a cut renews with you, a free month does not.';
+ renderSaved();
+}
+function scenarios(){try{return JSON.parse(localStorage.getItem('concession-verdict')||'[]')}catch(e){return[]}}
+function saveScenario(){const A=read('a'),B=read('b');const s=scenarios();s.unshift({d:new Date().toLocaleDateString(),A,B,ea:calc(A).effective,eb:calc(B).effective});localStorage.setItem('concession-verdict',JSON.stringify(s.slice(0,12)));renderSaved()}
+function renderSaved(){const s=scenarios();$('saved').innerHTML=s.length?'<h3 style="margin-top:16px">Saved comparisons</h3>'+s.map(x=>'<div><span>'+x.d+' · '+x.A.name+' '+fmt(x.ea)+'/mo vs '+x.B.name+' '+fmt(x.eb)+'/mo</span></div>').join(''):''}
+function copySummary(){const A=read('a'),B=read('b'),ca=calc(A),cb=calc(B);const t='THE CONCESSION VERDICT\n'+A.name+': '+fmt(A.face)+' face, '+A.free+' free mo, '+fmt(A.broker)+' broker → '+fmt(ca.effective)+'/mo effective, '+fmt(ca.total)+' total, renewal shock '+pct(ca.shockPct)+'\n'+B.name+': '+fmt(B.face)+' face, '+B.free+' free mo, '+fmt(B.broker)+' broker → '+fmt(cb.effective)+'/mo effective, '+fmt(cb.total)+' total\nVerdict: '+$('seal').textContent+' — '+(ca.effective<=cb.effective?A.name:B.name)+' wins by '+fmt(Math.abs(ca.effective-cb.effective))+'/mo effective.';navigator.clipboard&&navigator.clipboard.writeText(t);alert('Summary copied.')}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',render));
+render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+</script></body></html>
